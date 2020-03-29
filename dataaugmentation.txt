@@ -1,0 +1,28 @@
+img_path=r"C:\\Users\\91914\\Downloads\\machine-learning-online-2018-master\\machine-learning-online-2018-master\\Datasets\\Images\\images\\horses\\horse-10.jpg"
+
+from keras.preprocessing import image
+import matplotlib.pyplot as plt
+
+img=image.load_img(img_path,target_size=(100,100))
+x=image.img_to_array(img)/255.0
+plt.imshow(x)
+plt.axis("off")
+plt.show()
+x=x.reshape((1,100,100,3))
+datagen=image.ImageDataGenerator(
+rotation_range=30,
+width_shift_range=0.2,
+height_shift_range=0.2,
+shear_range=0.2,
+zoom_range=0.2,
+horizontal_flip=True,
+fill_mode="nearest")
+i=0
+for batch in datagen.flow(x,batch_size=1):
+    plt.figure()
+    imgplot=plt.imshow(image.img_to_array(batch[0]))
+    i+=1
+    if i==10:
+        break
+    plt.axis('off')
+    plt.show()
